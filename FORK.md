@@ -2,7 +2,7 @@
 
 [CSharpier](https://github.com/belav/csharpier) with a few opinionated changes for the HikeIt project. Everything else is upstream, so see the upstream README for usage.
 
-Base: upstream `1.0.1`. Fork versions are `<upstream version>.<revision>`, for example `1.0.1.1`. The package ID and command stay `CSharpier` / `csharpier` so editors and tools find it.
+Base: upstream `1.0.1`. Fork versions are `<upstream version>-expanded.<revision>`, for example `1.0.1-expanded.1`. The editors parse the pinned version as strict SemVer (three numbers), so a fourth number breaks them. The package ID and command stay `CSharpier` / `csharpier` so editors and tools find it.
 
 ## Changes from upstream
 
