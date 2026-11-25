@@ -66,12 +66,20 @@ internal static class ArgumentListLike
         }
         else if (arguments.Count > 0)
         {
+            var hasMultipleLambdas =
+                arguments.Count(argument =>
+                    argument.Expression
+                        is SimpleLambdaExpressionSyntax
+                            or ParenthesizedLambdaExpressionSyntax
+                ) >= 2;
+
             args = Doc.Concat(
                 Doc.Indent(
                     Doc.SoftLine,
                     SeparatedSyntaxList.Print(arguments, Argument.Print, Doc.Line, context)
                 ),
-                Doc.SoftLine
+                Doc.SoftLine,
+                hasMultipleLambdas ? Doc.BreakParent : Doc.Null
             );
         }
         else
