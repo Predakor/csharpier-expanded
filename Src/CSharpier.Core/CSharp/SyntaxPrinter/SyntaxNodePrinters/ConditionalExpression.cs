@@ -47,7 +47,7 @@ internal static class ConditionalExpression
 
         Doc[] outerContents =
         [
-            node.Parent is ConditionalExpressionSyntax ? Doc.BreakParent : Doc.Null,
+            Doc.BreakParent,
             node
                 is {
                     Parent: ReturnStatementSyntax,

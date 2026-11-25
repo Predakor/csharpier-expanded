@@ -9,6 +9,7 @@ Base: upstream `1.0.1`. Fork versions are `<upstream version>-expanded.<revision
 - **Member chains.** A chain with two or more calls always breaks, one call per line, with the receiver on its own line. Upstream keeps every chain on one line when it fits the print width. Implemented in `Src/CSharpier.Core/CSharp/SyntaxPrinter/SyntaxNodePrinters/InvocationExpression.cs`.
 
 - **Multiple lambda arguments.** A call with two or more lambda arguments (`ToDictionary(x => ..., x => ...)`) always breaks, one argument per line. Implemented in `Src/CSharpier.Core/CSharp/SyntaxPrinter/ArgumentListLikeSyntax.cs`.
+- **Ternaries.** A ternary always breaks into condition, `? whenTrue`, `: whenFalse` on separate lines. Chained ternaries keep upstream's layout (the repo doesn't use them). Implemented in `Src/CSharpier.Core/CSharp/SyntaxPrinter/SyntaxNodePrinters/ConditionalExpression.cs`.
 
 ## Building a package
 
