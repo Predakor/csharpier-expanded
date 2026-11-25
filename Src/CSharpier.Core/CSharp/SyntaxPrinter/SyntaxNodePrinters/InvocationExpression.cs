@@ -35,13 +35,16 @@ internal static class InvocationExpression
 
         var oneLine = SelectManyDocsToArray(groups);
 
-        var shouldMergeFirstTwoGroups = ShouldMergeFirstTwoGroups(groups, parent);
+        // Fork: any chain with two or more calls always breaks, one call per line.
+        var forceBreak = printedNodes.Count(o => o.Node is InvocationExpressionSyntax) >= 2;
+
+        var shouldMergeFirstTwoGroups = !forceBreak && ShouldMergeFirstTwoGroups(groups, parent);
 
         var cutoff = shouldMergeFirstTwoGroups ? 3 : 2;
 
         var forceOneLine =
             (
-                groups.Count <= cutoff
+                !forceBreak && groups.Count <= cutoff
                 && (
                     groups
                         .Skip(shouldMergeFirstTwoGroups ? 1 : 0)
@@ -103,7 +106,8 @@ internal static class InvocationExpression
         );
 
         return
-            oneLine.Skip(1).Any(DocUtilities.ContainsBreak)
+            forceBreak
+            || oneLine.Skip(1).Any(DocUtilities.ContainsBreak)
             || groups[0]
                 .Any(o =>
                     o.Node
